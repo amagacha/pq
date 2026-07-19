@@ -1,7 +1,3 @@
-// ========================================
-// 変数
-// ========================================
-
 let questions = [];
 
 let currentQuestion = null;
@@ -13,10 +9,6 @@ let questionNumber = 0;
 let answered = false;
 
 
-// ========================================
-// 地図を読み込む
-// ========================================
-
 async function loadMap() {
 
     const response =
@@ -24,10 +16,8 @@ async function loadMap() {
             "map.svg"
         );
 
-
     const svg =
         await response.text();
-
 
     document
         .getElementById(
@@ -35,73 +25,49 @@ async function loadMap() {
         )
         .innerHTML = svg;
 
-
     const map =
         document.querySelector(
             "#map svg"
         );
 
-
-    // 県名ツールチップを削除
-
     map
-
         .querySelectorAll(
             "title, desc"
         )
-
         .forEach(
             element => {
-
                 element.remove();
-
             }
         );
 
-
-    // 都道府県の基本設定
-
     map
-
         .querySelectorAll(
             ".prefecture"
         )
-
         .forEach(
             prefecture => {
 
                 prefecture
-
                     .removeAttribute(
                         "title"
                     );
 
-
                 prefecture
-
                     .removeAttribute(
                         "aria-label"
                     );
 
-
                 prefecture.style.fill =
-
-                    "#6f86b6";
-
+                    "#53678d";
 
                 prefecture.style.stroke =
-
-                    "#263b70";
+                    "#17213a";
 
             }
         );
 
 }
 
-
-// ========================================
-// 問題を読み込む
-// ========================================
 
 async function loadQuestions() {
 
@@ -110,119 +76,182 @@ async function loadQuestions() {
             "question.json"
         );
 
-
     questions =
         await response.json();
-
 
     createDropdown();
 
 }
 
 
-// ========================================
-// ドロップダウンを作成
-// ========================================
-
 function createDropdown() {
 
     const dropdown =
-
-        document
-
-            .getElementById(
-                "dropdown"
-            );
-
+        document.getElementById(
+            "dropdown"
+        );
 
     dropdown.innerHTML = "";
 
+    questions.forEach(
+        question => {
 
-    questions
+            const option =
+                document.createElement(
+                    "div"
+                );
 
-        .forEach(
-            question => {
+            option.className =
+                "dropdown-option";
 
-                const option =
+            option.textContent =
+                question.name;
+
+            option.dataset.value =
+                question.name;
+
+            option.addEventListener(
+                "click",
+                () => {
 
                     document
+                        .getElementById(
+                            "answer"
+                        )
+                        .value =
+                        question.name;
 
-                        .createElement(
-                            "div"
-                        );
+                    closeDropdown();
 
+                }
+            );
 
-                option.className =
+            dropdown.appendChild(
+                option
+            );
 
-                    "dropdown-option";
-
-
-                option.textContent =
-
-                    question.name;
-
-
-                option.dataset.value =
-
-                    question.name;
-
-
-                option.addEventListener(
-
-                    "click",
-
-                    () => {
-
-                        document
-
-                            .getElementById(
-                                "answer"
-                            )
-
-                            .value =
-
-                            question.name;
-
-
-                        closeDropdown();
-
-                    }
-
-                );
-
-
-                dropdown.appendChild(
-
-                    option
-
-                );
-
-            }
-        );
+        }
+    );
 
 }
 
 
-// ========================================
-// ドロップダウンを開く
-// ========================================
-
 function openDropdown() {
 
     const dropdown =
+        document.getElementById(
+            "dropdown"
+        );
 
-        document
+    const comboBox =
+        document.querySelector(
+            ".combo-box"
+        );
 
-            .getElementById(
-                "dropdown"
-            );
+    const rect =
+        comboBox.getBoundingClientRect();
 
 
     dropdown.classList.add(
-
         "show"
-
     );
+
+
+    const windowHeight =
+        window.innerHeight;
+
+
+    const margin =
+        8;
+
+
+    const spaceBelow =
+        windowHeight -
+        rect.bottom -
+        margin;
+
+
+    const spaceAbove =
+        rect.top -
+        margin;
+
+
+    const maxHeight =
+        240;
+
+
+    let dropdownHeight;
+
+
+    if (
+        spaceBelow >=
+        maxHeight
+    ) {
+
+        dropdownHeight =
+            maxHeight;
+
+        dropdown.style.top =
+            `${rect.bottom + margin}px`;
+
+    }
+
+
+    else if (
+        spaceAbove >=
+        maxHeight
+    ) {
+
+        dropdownHeight =
+            maxHeight;
+
+        dropdown.style.top =
+            `${rect.top - dropdownHeight - margin}px`;
+
+    }
+
+
+    else if (
+        spaceBelow >=
+        spaceAbove
+    ) {
+
+        dropdownHeight =
+            Math.max(
+                spaceBelow,
+                80
+            );
+
+        dropdown.style.top =
+            `${rect.bottom + margin}px`;
+
+    }
+
+
+    else {
+
+        dropdownHeight =
+            Math.max(
+                spaceAbove,
+                80
+            );
+
+        dropdown.style.top =
+            `${rect.top - dropdownHeight - margin}px`;
+
+    }
+
+
+    dropdown.style.maxHeight =
+        `${dropdownHeight}px`;
+
+
+    dropdown.style.left =
+        `${rect.left}px`;
+
+
+    dropdown.style.width =
+        `${rect.width}px`;
 
 
     filterDropdown();
@@ -230,140 +259,85 @@ function openDropdown() {
 }
 
 
-// ========================================
-// ドロップダウンを閉じる
-// ========================================
-
 function closeDropdown() {
 
     const dropdown =
-
-        document
-
-            .getElementById(
-                "dropdown"
-            );
-
+        document.getElementById(
+            "dropdown"
+        );
 
     dropdown.classList.remove(
-
         "show"
-
     );
 
 }
 
 
-// ========================================
-// 入力文字で候補を絞り込む
-// ========================================
-
 function filterDropdown() {
 
     const input =
-
-        document
-
-            .getElementById(
-                "answer"
-            );
-
+        document.getElementById(
+            "answer"
+        );
 
     const keyword =
-
-        input
-
-            .value
-
-            .toLowerCase();
-
+        input.value.toLowerCase();
 
     const options =
+        document.querySelectorAll(
+            ".dropdown-option"
+        );
 
-        document
+    options.forEach(
+        option => {
 
-            .querySelectorAll(
-                ".dropdown-option"
-            );
+            const name =
+                option.textContent
+                    .toLowerCase();
 
+            if (
+                name.includes(
+                    keyword
+                )
+            ) {
 
-    options
-
-        .forEach(
-            option => {
-
-                const name =
-
-                    option
-
-                        .textContent
-
-                        .toLowerCase();
-
-
-                if (
-
-                    name.includes(
-                        keyword
-                    )
-
-                ) {
-
-                    option.style.display =
-
-                        "block";
-
-                }
-
-                else {
-
-                    option.style.display =
-
-                        "none";
-
-                }
+                option.style.display =
+                    "block";
 
             }
-        );
+
+            else {
+
+                option.style.display =
+                    "none";
+
+            }
+
+        }
+    );
 
 }
 
 
-// ========================================
-// コンボボタン
-// ========================================
-
 document
-
     .getElementById(
         "comboButton"
     )
-
     .addEventListener(
-
         "click",
+        event => {
 
-        () => {
+            event.stopPropagation();
 
             const dropdown =
-
-                document
-
-                    .getElementById(
-                        "dropdown"
-                    );
-
+                document.getElementById(
+                    "dropdown"
+                );
 
             if (
-
-                dropdown
-
-                    .classList
-
-                    .contains(
-                        "show"
-                    )
-
+                dropdown.classList.contains(
+                    "show"
+                )
             ) {
 
                 closeDropdown();
@@ -377,85 +351,51 @@ document
             }
 
         }
-
     );
 
 
-// ========================================
-// 入力時
-// ========================================
-
 document
-
     .getElementById(
         "answer"
     )
-
     .addEventListener(
-
         "input",
-
         () => {
 
             openDropdown();
 
         }
-
     );
 
 
-// ========================================
-// 入力欄をクリック
-// ========================================
-
 document
-
     .getElementById(
         "answer"
     )
-
     .addEventListener(
-
         "focus",
-
         () => {
 
             openDropdown();
 
         }
-
     );
 
 
-// ========================================
-// 外側をクリックしたら閉じる
-// ========================================
-
 document
-
     .addEventListener(
-
         "click",
-
         event => {
 
             const comboBox =
-
-                document
-
-                    .querySelector(
-                        ".combo-box"
-                    );
-
+                document.querySelector(
+                    ".combo-box"
+                );
 
             if (
-
-                !comboBox
-
-                    .contains(
-                        event.target
-                    )
-
+                !comboBox.contains(
+                    event.target
+                )
             ) {
 
                 closeDropdown();
@@ -463,130 +403,78 @@ document
             }
 
         }
-
     );
 
-
-// ========================================
-// 新しい問題
-// ========================================
 
 function newQuestion() {
 
     const prefectures =
+        document.querySelectorAll(
+            "#map svg .prefecture"
+        );
 
-        document
+    prefectures.forEach(
+        prefecture => {
 
-            .querySelectorAll(
-
-                "#map svg .prefecture"
-
+            prefecture.classList.remove(
+                "target"
             );
 
-
-    prefectures
-
-        .forEach(
-
-            prefecture => {
-
-                prefecture
-
-                    .classList
-
-                    .remove(
-                        "target"
-                    );
-
-            }
-
-        );
+        }
+    );
 
 
     currentQuestion =
-
         questions[
-
             Math.floor(
-
                 Math.random() *
-
                 questions.length
-
             )
-
         ];
 
 
     const target =
-
-        document
-
-            .querySelector(
-
-                `#map svg .prefecture[data-code="${currentQuestion.code}"]`
-
-            );
-
-
-    if (
-
-        !target
-
-    ) {
-
-        console.error(
-
-            "地図に見つからない都道府県:",
-
-            currentQuestion
-
+        document.querySelector(
+            `#map svg .prefecture[data-code="${currentQuestion.code}"]`
         );
 
 
-        newQuestion();
+    if (
+        !target
+    ) {
 
+        console.error(
+            "地図に見つからない都道府県:",
+            currentQuestion
+        );
+
+        newQuestion();
 
         return;
 
     }
 
 
-    target
-
-        .classList
-
-        .add(
-            "target"
-        );
+    target.classList.add(
+        "target"
+    );
 
 
     questionNumber++;
 
 
     document
-
         .getElementById(
-
             "questionNumber"
-
         )
-
         .textContent =
-
         `第${questionNumber}問`;
 
 
     const answer =
-
-        document
-
-            .getElementById(
-
-                "answer"
-
-            );
-
+        document.getElementById(
+            "answer"
+        );
 
     answer.value = "";
 
@@ -594,52 +482,41 @@ function newQuestion() {
 
 
     document
-
         .getElementById(
-
-            "answerButton"
-
+            "comboButton"
         )
+        .disabled = false;
 
+
+    document
+        .getElementById(
+            "answerButton"
+        )
         .style.display =
-
         "block";
 
 
     document
-
         .getElementById(
-
             "nextButton"
-
         )
-
         .style.display =
-
         "none";
 
 
     document
-
         .getElementById(
-
             "result"
-
         )
-
-        .textContent = "";
+        .textContent =
+        "";
 
 
     document
-
         .getElementById(
-
             "result"
-
         )
-
         .className =
-
         "result";
 
 
@@ -651,16 +528,10 @@ function newQuestion() {
 }
 
 
-// ========================================
-// 回答
-// ========================================
-
 function answerQuestion() {
 
     if (
-
         answered
-
     ) {
 
         return;
@@ -669,25 +540,17 @@ function answerQuestion() {
 
 
     const answer =
-
-        document
-
-            .getElementById(
-
-                "answer"
-
-            );
+        document.getElementById(
+            "answer"
+        );
 
 
     const userAnswer =
-
         answer.value.trim();
 
 
     if (
-
         !userAnswer
-
     ) {
 
         return;
@@ -702,26 +565,17 @@ function answerQuestion() {
 
 
     document
-
         .getElementById(
-
             "comboButton"
-
         )
-
         .disabled = true;
 
 
     document
-
         .getElementById(
-
             "answerButton"
-
         )
-
         .style.display =
-
         "none";
 
 
@@ -729,167 +583,96 @@ function answerQuestion() {
 
 
     const result =
-
-        document
-
-            .getElementById(
-
-                "result"
-
-            );
+        document.getElementById(
+            "result"
+        );
 
 
     if (
-
         userAnswer ===
-
         currentQuestion.name
-
     ) {
 
         score++;
 
 
         document
-
             .getElementById(
-
                 "score"
-
             )
-
             .textContent =
-
             score;
 
 
         result.textContent =
-
             "🎉 正解！！";
 
 
         result.classList.add(
-
             "correct"
-
         );
 
     }
 
+
     else {
 
         result.textContent =
-
             `❌ 不正解！正解は「${currentQuestion.name}」`;
 
 
         result.classList.add(
-
             "wrong"
-
         );
 
     }
 
 
     document
-
         .getElementById(
-
             "nextButton"
-
         )
-
         .style.display =
-
         "block";
 
 }
 
 
-// ========================================
-// 次の問題
-// ========================================
+document
+    .getElementById(
+        "answerButton"
+    )
+    .addEventListener(
+        "click",
+        answerQuestion
+    );
+
 
 document
-
     .getElementById(
-
         "nextButton"
-
     )
-
     .addEventListener(
-
         "click",
-
         () => {
-
-            document
-
-                .getElementById(
-
-                    "comboButton"
-
-                )
-
-                .disabled =
-
-                false;
-
 
             newQuestion();
 
         }
-
     );
 
 
-// ========================================
-// 回答ボタン
-// ========================================
-
 document
-
     .getElementById(
-
-        "answerButton"
-
-    )
-
-    .addEventListener(
-
-        "click",
-
-        answerQuestion
-
-    );
-
-
-// ========================================
-// Enterキー
-// ========================================
-
-document
-
-    .getElementById(
-
         "answer"
-
     )
-
     .addEventListener(
-
         "keydown",
-
         event => {
 
             if (
-
                 event.key ===
-
                 "Enter"
-
             ) {
 
                 answerQuestion();
@@ -897,13 +680,32 @@ document
             }
 
         }
-
     );
 
 
-// ========================================
-// ゲーム開始
-// ========================================
+window
+    .addEventListener(
+        "resize",
+        () => {
+
+            const dropdown =
+                document.getElementById(
+                    "dropdown"
+                );
+
+            if (
+                dropdown.classList.contains(
+                    "show"
+                )
+            ) {
+
+                openDropdown();
+
+            }
+
+        }
+    );
+
 
 async function startGame() {
 
@@ -918,17 +720,12 @@ async function startGame() {
     }
 
     catch (
-
         error
-
     ) {
 
         console.error(
-
             "ゲームの読み込みに失敗しました:",
-
             error
-
         );
 
     }
