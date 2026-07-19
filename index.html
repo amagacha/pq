@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="ja">
 
 <head>
@@ -10,7 +11,9 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>都道府県クイズ</title>
+    <title>
+        都道府県クイズ
+    </title>
 
     <link
         rel="stylesheet"
@@ -19,142 +22,198 @@
 
 </head>
 
+
 <body>
 
-    <div class="app">
 
-        <header>
-
-            <h1>🇯🇵 都道府県クイズ</h1>
-
-            <p>
-                光っている都道府県を答えよう！
-            </p>
-
-        </header>
+<div class="app">
 
 
-        <main class="game">
+    <header>
 
-            <div class="topbar">
+        <h1>
+            🗾 都道府県クイズ
+        </h1>
 
-                <div id="questionNumber">
-                    第1問
-                </div>
+        <p>
+            光っている都道府県の名前を答えよう！
+        </p>
 
-                <div class="score">
+    </header>
 
-                    ⭐
 
-                    <span id="score">
-                        0
-                    </span>
+    <main class="game">
 
-                    点
 
-                </div>
+        <div class="topbar">
+
+
+            <span
+                id="questionNumber"
+            >
+                第1問
+            </span>
+
+
+            <span>
+
+                スコア：
+
+                <span
+                    id="score"
+                >
+                    0
+                </span>
+
+            </span>
+
+
+            <div
+                class="progress-buttons"
+            >
+
+
+                <button
+                    id="saveProgressButton"
+                    type="button"
+                >
+
+                    💾 進捗を保存
+
+                </button>
+
+
+                <button
+                    id="deleteProgressButton"
+                    type="button"
+                >
+
+                    🗑️ 進捗を削除
+
+                </button>
+
 
             </div>
 
 
-            <div class="map-container">
+        </div>
 
-                <div id="map"></div>
+
+        <div
+            class="map-container"
+        >
+
+            <div
+                id="map"
+            >
+
+                地図を読み込み中...
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="question-area"
+        >
+
+
+            <div
+                class="question"
+            >
+
+                光っている都道府県はどこ？
 
             </div>
 
 
-            <div class="question-area">
-
-                <div class="question">
-
-                    光っている都道府県はどこ？
-
-                </div>
+            <div
+                class="answer-area"
+            >
 
 
-                <div class="answer-area">
-
-                    <div class="combo-box">
-
-                        <input
-
-                            id="answer"
-
-                            type="text"
-
-                            placeholder="都道府県名を入力または選択"
-
-                            autocomplete="off"
-
-                        >
-
-                        <button
-
-                            id="comboButton"
-
-                            type="button"
-
-                        >
-
-                            ▼
-
-                        </button>
+                <div
+                    class="combo-box"
+                >
 
 
-                        <div
+                    <input
+                        type="text"
+                        id="answer"
+                        placeholder="都道府県名を入力または選択"
+                        autocomplete="off"
+                    >
 
-                            id="dropdown"
 
-                            class="dropdown"
+                    <button
+                        id="comboButton"
+                        type="button"
+                    >
 
-                        ></div>
+                        ▼
+
+                    </button>
+
+
+                    <div
+                        id="dropdown"
+                        class="dropdown"
+                    >
 
                     </div>
 
 
-                    <button
-
-                        id="answerButton"
-
-                    >
-
-                        回答する
-
-                    </button>
-
                 </div>
 
 
-                <div
-
-                    id="result"
-
-                    class="result"
-
-                ></div>
-
-
                 <button
-
-                    id="nextButton"
-
-                    class="next-button"
-
+                    id="answerButton"
+                    type="button"
                 >
 
-                    次の問題
+                    回答する
 
                 </button>
 
+
             </div>
 
-        </main>
 
-    </div>
+            <div
+                id="result"
+                class="result"
+            >
+
+            </div>
 
 
-    <script src="script.js"></script>
+            <button
+                id="nextButton"
+                class="next-button"
+                type="button"
+            >
+
+                次の問題
+
+            </button>
+
+
+        </div>
+
+
+    </main>
+
+
+</div>
+
+
+<script
+    src="script.js"
+>
+
+</script>
+
 
 </body>
 

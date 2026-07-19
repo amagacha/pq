@@ -2,11 +2,13 @@
     box-sizing: border-box;
 }
 
+
 html,
 body {
     width: 100%;
     height: 100%;
 }
+
 
 body {
     margin: 0;
@@ -63,6 +65,7 @@ header {
     margin-bottom: 10px;
 }
 
+
 h1 {
     margin: 0;
 
@@ -86,6 +89,7 @@ h1 {
             0.35
         );
 }
+
 
 header p {
     margin: 5px 0 0;
@@ -177,10 +181,65 @@ header p {
     font-weight: bold;
 
     color: #dce6ff;
+
+    gap: 10px;
 }
+
 
 .score {
     font-size: 20px;
+}
+
+
+.progress-buttons {
+    display: flex;
+
+    gap: 8px;
+
+    align-items: center;
+}
+
+
+.progress-buttons button {
+    padding:
+        8px
+        12px;
+
+    border:
+        1px solid
+        #536b9e;
+
+    border-radius: 9px;
+
+    background:
+        #1b2745;
+
+    color: #dce6ff;
+
+    font-size: 13px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s,
+        transform 0.2s;
+}
+
+
+.progress-buttons button:hover {
+    background:
+        #344a78;
+
+    transform:
+        translateY(-1px);
+}
+
+
+.progress-buttons button:active {
+    transform:
+        translateY(0);
 }
 
 
@@ -204,6 +263,7 @@ header p {
     overflow: hidden;
 }
 
+
 #map {
     width: 100%;
 
@@ -215,6 +275,7 @@ header p {
 
     align-items: center;
 }
+
 
 #map svg {
     display: block;
@@ -268,6 +329,7 @@ header p {
         alternate;
 }
 
+
 @keyframes glowing {
 
     from {
@@ -277,6 +339,7 @@ header p {
     to {
         opacity: 1;
     }
+
 }
 
 
@@ -291,6 +354,7 @@ header p {
 
     text-align: center;
 }
+
 
 .question {
     margin-bottom: 10px;
@@ -330,6 +394,7 @@ header p {
     display: flex;
 }
 
+
 #answer {
     width: 100%;
 
@@ -362,9 +427,11 @@ header p {
     outline: none;
 }
 
+
 #answer::placeholder {
     color: #8e9cbe;
 }
+
 
 #answer:focus {
     border-color: #7f9bd4;
@@ -407,14 +474,12 @@ header p {
     font-size: 16px;
 }
 
+
 #comboButton:hover {
-    background: #687fae;
+    background:
+        #687fae;
 }
 
-
-/* ========================================
-   ドロップダウン
-======================================== */
 
 .dropdown {
     position: fixed;
@@ -448,9 +513,11 @@ header p {
         );
 }
 
+
 .dropdown.show {
     display: block;
 }
+
 
 .dropdown-option {
     padding:
@@ -477,10 +544,12 @@ header p {
         0.15s;
 }
 
+
 .dropdown-option:hover {
     background:
         #344a78;
 }
+
 
 .dropdown-option:active {
     background:
@@ -522,6 +591,7 @@ header p {
         );
 }
 
+
 #answerButton:hover {
     background:
         linear-gradient(
@@ -551,6 +621,7 @@ button {
         transform 0.2s,
         background 0.2s;
 }
+
 
 button:active {
     transform:
@@ -599,9 +670,11 @@ button:active {
     font-weight: bold;
 }
 
+
 .correct {
     color: #68e39a;
 }
+
 
 .wrong {
     color: #ff8a8a;
@@ -616,6 +689,7 @@ button:active {
         align-items: flex-start;
     }
 
+
     .app {
         height: auto;
 
@@ -624,13 +698,32 @@ button:active {
         padding: 12px;
     }
 
+
     .game {
         max-height: none;
     }
 
+
     #map svg {
         max-height: 55vh;
     }
+
+}
+
+
+@media (max-width: 800px) {
+
+    .topbar {
+        flex-wrap: wrap;
+    }
+
+
+    .progress-buttons {
+        width: 100%;
+
+        justify-content: center;
+    }
+
 }
 
 
@@ -640,13 +733,16 @@ button:active {
         padding: 8px;
     }
 
+
     h1 {
         font-size: 30px;
     }
 
+
     header p {
         font-size: 13px;
     }
+
 
     .game {
         padding: 12px;
@@ -654,35 +750,55 @@ button:active {
         border-radius: 20px;
     }
 
+
     .topbar {
         font-size: 15px;
     }
+
 
     .score {
         font-size: 17px;
     }
 
+
+    .progress-buttons {
+        flex-direction: column;
+
+        width: 100%;
+    }
+
+
+    .progress-buttons button {
+        width: 100%;
+    }
+
+
     .map-container {
         min-height: 280px;
     }
+
 
     #map svg {
         max-height: 40vh;
     }
 
+
     .question {
         font-size: 18px;
     }
 
+
     .answer-area {
         flex-direction: column;
     }
+
 
     #answerButton {
         width: 100%;
 
         padding: 14px;
     }
+
 }
 
 
@@ -692,9 +808,11 @@ button:active {
         font-size: 34px;
     }
 
+
     header p {
         display: none;
     }
+
 
     .game {
         max-height:
@@ -703,11 +821,14 @@ button:active {
             );
     }
 
+
     #map svg {
         max-height: 48vh;
     }
 
+
     .question {
         font-size: 18px;
     }
+
 }
