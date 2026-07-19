@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>都道府県クイズ</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+</head>
+
+<body>
+
+    <div class="app">
+
+        <header>
+
+            <h1>🇯🇵 都道府県クイズ</h1>
+
+            <p>
+                光っている都道府県を答えよう！
+            </p>
+
+        </header>
+
+
+        <main class="game">
+
+            <div class="topbar">
+
+                <div id="questionNumber">
+                    第1問
+                </div>
+
+                <div class="score">
+
+                    ⭐
+
+                    <span id="score">
+                        0
+                    </span>
+
+                    点
+
+                </div>
+
+            </div>
+
+
+            <div class="map-container">
+
+                <div id="map"></div>
+
+            </div>
+
+
+            <div class="question-area">
+
+                <div class="question">
+
+                    光っている都道府県はどこ？
+
+                </div>
+
+
+                <div class="answer-area">
+
+                    <div class="combo-box">
+
+                        <input
+
+                            id="answer"
+
+                            type="text"
+
+                            placeholder="都道府県名を入力または選択"
+
+                            autocomplete="off"
+
+                        >
+
+                        <button
+
+                            id="comboButton"
+
+                            type="button"
+
+                        >
+
+                            ▼
+
+                        </button>
+
+
+                        <div
+
+                            id="dropdown"
+
+                            class="dropdown"
+
+                        ></div>
+
+                    </div>
+
+
+                    <button
+
+                        id="answerButton"
+
+                    >
+
+                        回答する
+
+                    </button>
+
+                </div>
+
+
+                <div
+
+                    id="result"
+
+                    class="result"
+
+                ></div>
+
+
+                <button
+
+                    id="nextButton"
+
+                    class="next-button"
+
+                >
+
+                    次の問題
+
+                </button>
+
+            </div>
+
+        </main>
+
+    </div>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
