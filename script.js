@@ -76,11 +76,6 @@ async function loadMap() {
         .forEach(
             prefecture => {
 
-                prefecture
-                    .removeAttribute(
-                        "title"
-                    );
-
 
                 prefecture
                     .removeAttribute(
